@@ -13,19 +13,23 @@ $git_bin_path = 'git';
 // Parse data from Bitbucket hook payload
 $payload = json_decode(stripslashes($_POST['payload']));
 
-if (empty($payload->commits)){
+if (empty($payload->commits))
+{
 
 	// When merging and pushing to bitbucket, the commits array will be empty. testing...
 	file_put_contents('deploy.log', date('m/d/Y h:i:s a') . " Empty Payload for: " . $branch . " Commit: " . $commit_hash . "\n", FILE_APPEND);
 
 }
-else {
+else
+{
 
-	foreach ($payload->commits as $commit) {
+	foreach ($payload->commits as $commit)
+	{
 
 		$branch = $commit->branch;
 
-		if ($branch === 'master' || isset($commit->branches) && in_array('master', $commit->branches)) {
+		if ($branch === 'master' || isset($commit->branches) && in_array('master', $commit->branches))
+		{
 
 			// Do a git checkout to the web root
 			exec('cd ' . $repo_dir . ' && ' . $git_bin_path  . ' fetch');
@@ -36,7 +40,8 @@ else {
 			file_put_contents('deploy.log', date('m/d/Y h:i:s a') . " Deployed branch: " . $branch . " Commit: " . $commit_hash . "\n", FILE_APPEND);
 
 		}
-		elseif ($branch === 'dev' || isset($commit->branches) && in_array('dev', $commit->branches)) {
+		elseif ($branch === 'dev' || isset($commit->branches) && in_array('dev', $commit->branches))
+		{
 
 			// Do a git checkout to the web root
 			exec('cd ' . $repo_dir . ' && ' . $git_bin_path  . ' fetch');
@@ -47,7 +52,8 @@ else {
 			file_put_contents('deploy.log', date('m/d/Y h:i:s a') . " Deployed branch: " . $branch . " Commit: " . $commit_hash . "\n", FILE_APPEND);
 
 		}
-		else {
+		else
+		{
 
 			// for debugging eventually remove
 			file_put_contents('deploy.log', date('m/d/Y h:i:s a') . " Error with: " . $branch . " Commit: " . $commit_hash . "\n", FILE_APPEND);
