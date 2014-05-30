@@ -11,19 +11,23 @@ $update = false;
 // Parse data from Bitbucket hook payload
 $payload = json_decode(stripslashes($_POST['payload']));
 
-if (empty($payload->commits)){
+if (empty($payload->commits))
+{
 
-// When merging and pushing to bitbucket, the commits array will be empty.
-// In this case there is no way to know what branch was pushed to, so we will do an update.
-$update = true;
+	// When merging and pushing to bitbucket, the commits array will be empty.
+	// In this case there is no way to know what branch was pushed to, so we will do an update.
+	$update = true;
 
-} else {
+} else
+{
 
-	foreach ($payload->commits as $commit) {
+	foreach ($payload->commits as $commit)
+	{
 
 		$branch = $commit->branch;
 
-		if ($branch === 'master' || isset($commit->branches) && in_array('master', $commit->branches)) {
+		if ($branch === 'master' || isset($commit->branches) && in_array('master', $commit->branches))
+		{
 
 			$update = true; // Instead of update add another if for dev and master
 			break;
@@ -32,7 +36,8 @@ $update = true;
 	}
 }
 
-if ($update) {
+if ($update)
+{
 
 	// Do a git checkout to the web root
 	exec('cd ' . $repo_dir . ' && ' . $git_bin_path  . ' fetch');
