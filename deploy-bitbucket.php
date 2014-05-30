@@ -30,7 +30,7 @@ if (empty($payload->commits)){
 if ($update) {
   // Do a git checkout to the web root
   exec('cd ' . $repo_dir . ' && ' . $git_bin_path  . ' fetch');
-  exec('cd ' . $repo_dir . ' && GIT_WORK_TREE=' . $web_root_dir . ' ' . $git_bin_path  . ' checkout -f master');
+  exec('cd ' . $repo_dir . ' && GIT_WORK_TREE=' . $web_root_dir . ' ' . $git_bin_path  . ' checkout -f' . $branch);
  
   // Log the deployment
   $commit_hash = shell_exec('cd ' . $repo_dir . ' && ' . $git_bin_path  . ' rev-parse --short HEAD');
