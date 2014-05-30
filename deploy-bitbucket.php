@@ -1,7 +1,7 @@
 <?php
 
-$repo_dir = '/nfs/c08/h02/mnt/122813/domains/frank.chasefarthing.com/frank-website.git';
-$web_root_dir = '/nfs/c08/h02/mnt/122813/domains/frank.chasefarthing.com/html';
+$repo_dir = 'path to repo';
+$web_root_dir = 'path to directory';
  
 // Full path to git binary is required if git is not in your PHP user's path. Otherwise just use 'git'.
 $git_bin_path = 'git';
